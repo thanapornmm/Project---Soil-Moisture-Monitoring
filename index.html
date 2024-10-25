@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soil Moisture Monitoring</title>
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Add your custom styles and scripts -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 50px;
+        }
+
+        h1 {
+            color: #4CAF50; /* Green color */
+        }
+
+        p {
+            color: #008000; /* Dark green color */
+            font-size: 20px;
+        }
+    </style>
+
+    <script>
+        // Function to update soil moisture value
+        function updateSoilMoistureValue() {
+            // Use AJAX to fetch data from Arduino
+            $.ajax({
+                url: '/path-to-your-arduino-endpoint', // Update with the actual endpoint
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    // Update the HTML with the received moisture value
+                    $('#moistureValue').text(data.moisture_value);
+                },
+                error: function () {
+                    console.error('Error fetching data from Arduino');
+                }
+            });
+        }
+
+        // Update soil moisture value on page load
+        updateSoilMoistureValue();
+
+        // Update soil moisture value every 5 seconds (adjust as needed)
+        setInterval(updateSoilMoistureValue, 5000);
+    </script>
+</head>
+<body>
+
+    <h1>Soil Moisture Monitoring</h1>
+
+    <p>Current Soil Moisture Value: <span id="moistureValue" style="font-weight: bold; font-size: 24px;"></span></p>
+
+</body>
+</html>
